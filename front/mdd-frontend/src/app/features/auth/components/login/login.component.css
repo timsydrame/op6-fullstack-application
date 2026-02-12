@@ -20,7 +20,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 30px;
-    position: relative;
+    position: relative; 
+    border: 1px solid #e0e0e0;
 }
 
 .back-button {

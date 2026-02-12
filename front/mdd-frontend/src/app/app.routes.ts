@@ -28,6 +28,14 @@ export const routes: Routes = [
       import('./features/feed/feed.component').then((m) => m.FeedComponent),
   },
   {
+    path: 'themes',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/themes/themes.component').then(
+        (m) => m.ThemesComponent,
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
