@@ -1,0 +1,77 @@
+.header {
+    background: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav {
+    display: flex;
+    gap: 30px;
+    margin-left: auto;
+    /* <-- place Articles/Thèmes à droite */
+    margin-right: 24px;
+    /* <-- espace avant l’icône profil */
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: #7C5CDB;
+}
+
+.nav-link.active {
+    color: #7C5CDB;
+    border-bottom-color: #7C5CDB;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    padding: 5px;
+    transition: opacity 0.3s;
+}
+
+.icon-button:hover {
+    opacity: 0.7;
+}
+
+.user-icon {
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+    }
+
+    .nav {
+        gap: 20px;
+    }
+}

@@ -1,0 +1,33 @@
+<div class="themes-page">
+  <!-- Header -->
+  <div class="themes-page">
+  <!-- Header réutilisable -->
+  <app-header [activeTab]="'themes'"></app-header>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="container">
+      <div class="loading" *ngIf="isLoading">
+        Chargement des thèmes...
+      </div>
+
+      <div class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="themes-grid" *ngIf="!isLoading && !errorMessage">
+        <div class="theme-card" *ngFor="let theme of themes">
+          <h3 class="theme-title">{{ theme.name }}</h3>
+          <p class="theme-description">{{ theme.description }}</p>
+          <button 
+            class="btn-subscribe" 
+            [class.subscribed]="theme.isSubscribed"
+            (click)="toggleSubscription(theme)"
+          >
+            {{ theme.isSubscribed ? 'Déjà abonné' : 'S\'abonner' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

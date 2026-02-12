@@ -1,0 +1,28 @@
+<header class="header">
+  <div class="logo" (click)="goToFeed()">
+    <img src="assets/logo-mdd.png" alt="MDD Logo" class="logo">
+  </div>
+  
+  <nav class="nav">
+    <a 
+      (click)="goToFeed()" 
+      class="nav-link"
+      [class.active]="activeTab === 'articles'"
+    >
+      Articles
+    </a>
+    <a 
+      (click)="goToThemes()" 
+      class="nav-link"
+      [class.active]="activeTab === 'themes'"
+    >
+      Thèmes
+    </a>
+  </nav>
+  
+  <div class="user-menu">
+    <button class="icon-button" (click)="goToProfile()" aria-label="Profil">
+      <span class="user-icon">👤</span>
+    </button>
+  </div>
+</header>
