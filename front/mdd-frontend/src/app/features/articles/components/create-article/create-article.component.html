@@ -1,0 +1,81 @@
+<div class="create-page">
+  <app-header [activeTab]="'articles'"></app-header>
+
+  <div class="content">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <button class="back-button" (click)="goBack()">←</button>
+          <h1 class="title">Créer un article</h1>
+        </div>
+
+        <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+          <!-- Sélection du thème -->
+          <div class="form-group">
+            <label for="themeId">Thème</label>
+            <select
+              id="themeId"
+              formControlName="themeId"
+              [class.error]="createForm.get('themeId')?.invalid && createForm.get('themeId')?.touched"
+            >
+              <option value="">Sélectionner un thème</option>
+              <option *ngFor="let theme of themes" [value]="theme.id">
+                {{ theme.name }}
+              </option>
+            </select>
+            <div class="error-message"
+              *ngIf="createForm.get('themeId')?.invalid && createForm.get('themeId')?.touched">
+              Veuillez sélectionner un thème
+            </div>
+          </div>
+
+          <!-- Titre -->
+          <div class="form-group">
+            <label for="title">Titre</label>
+            <input
+              type="text"
+              id="title"
+              formControlName="title"
+              placeholder="Titre de l'article"
+              [class.error]="createForm.get('title')?.invalid && createForm.get('title')?.touched"
+            >
+            <div class="error-message"
+              *ngIf="createForm.get('title')?.invalid && createForm.get('title')?.touched">
+              Le titre est obligatoire (max 200 caractères)
+            </div>
+          </div>
+
+          <!-- Contenu -->
+          <div class="form-group">
+            <label for="content">Contenu</label>
+            <textarea
+              id="content"
+              formControlName="content"
+              placeholder="Contenu de l'article..."
+              rows="10"
+              [class.error]="createForm.get('content')?.invalid && createForm.get('content')?.touched"
+            ></textarea>
+            <div class="error-message"
+              *ngIf="createForm.get('content')?.invalid && createForm.get('content')?.touched">
+              Le contenu est obligatoire
+            </div>
+          </div>
+
+          <!-- Erreur globale -->
+          <div class="error-message global-error" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Bouton submit -->
+          <button
+            type="submit"
+            class="btn-submit"
+            [disabled]="createForm.invalid || isLoading"
+          >
+            {{ isLoading ? 'CRÉATION...' : 'CRÉER L\'ARTICLE' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

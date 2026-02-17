@@ -1,0 +1,46 @@
+<div class="feed-page">
+  <app-header [activeTab]="'articles'"></app-header>
+
+  <div class="content">
+    <div class="container">
+      <!-- Bouton créer article -->
+      <div class="create-section">
+        <button class="btn-create" (click)="goToCreateArticle()">
+          Créer un article
+        </button>
+        <div class="sort-info">Trier par</div>
+      </div>
+
+      <!-- Loading -->
+      <div class="loading" *ngIf="isLoading">
+        Chargement des articles...
+      </div>
+
+      <!-- Error -->
+      <div class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Message si pas d'articles -->
+      <div class="no-articles" *ngIf="!isLoading && !errorMessage && articles.length === 0">
+        <p>Aucun article pour le moment.</p>
+        <p class="hint">Abonnez-vous à des thèmes pour voir des articles ici !</p>
+      </div>
+
+      <!-- Liste des articles -->
+      <div class="articles-list" *ngIf="!isLoading && !errorMessage && articles.length > 0">
+        <div class="article-card" *ngFor="let article of articles" (click)="goToArticle(article.id)">
+          <div class="article-header">
+            <h2 class="article-title">{{ article.title }}</h2>
+            <span class="article-theme">{{ article.themeName }}</span>
+          </div>
+          <div class="article-meta">
+            <span class="article-date">{{ article.createdAt | date:'dd/MM/yyyy' }}</span>
+            <span class="article-author">Auteur : {{ article.authorName }}</span>
+          </div>
+          <p class="article-preview">{{ article.content | slice:0:200 }}{{ article.content.length > 200 ? '...' : '' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

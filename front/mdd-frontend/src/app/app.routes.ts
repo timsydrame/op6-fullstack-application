@@ -25,7 +25,9 @@ export const routes: Routes = [
     path: 'feed',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/feed/feed.component').then((m) => m.FeedComponent),
+      import('./features/articles/components/feed/feed.component').then(
+        (m) => m.FeedComponent,
+      ),
   },
   {
     path: 'themes',
@@ -33,6 +35,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/themes/themes.component').then(
         (m) => m.ThemesComponent,
+      ),
+  },
+  {
+    path: 'articles/create',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/articles/components/create-article/create-article.component').then(
+        (m) => m.CreateArticleComponent,
+      ),
+  },
+  {
+    path: 'articles/:id',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/articles/components/article-detail/article-detail.component').then(
+        (m) => m.ArticleDetailComponent,
       ),
   },
   {

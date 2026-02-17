@@ -1,0 +1,74 @@
+<p>article-detail works!</p>
+<div class="detail-page">
+  <app-header [activeTab]="'articles'"></app-header>
+
+  <div class="content">
+    <div class="container">
+
+      <!-- Loading -->
+      <div class="loading" *ngIf="isLoading">
+        Chargement de l'article...
+      </div>
+
+      <!-- Error -->
+      <div class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Article -->
+      <div *ngIf="!isLoading && article">
+        <button class="back-button" (click)="goBack()">← Retour</button>
+
+        <div class="article-card">
+          <div class="article-meta">
+            <span class="article-theme">{{ article.themeName }}</span>
+            <span class="article-date">
+              {{ article.createdAt | date:'dd/MM/yyyy' }}
+            </span>
+          </div>
+
+          <h1 class="article-title">{{ article.title }}</h1>
+
+          <div class="article-author">
+            <span class="author-icon">👤</span>
+            <span>{{ article.authorName }}</span>
+          </div>
+
+          <div class="article-content">
+            {{ article.content }}
+          </div>
+        </div>
+
+        <!-- Section Commentaires -->
+        <div class="comments-section">
+          <h2 class="comments-title">Commentaires</h2>
+
+          <!-- Liste commentaires (vide pour l'instant) -->
+          <div class="no-comments" *ngIf="comments.length === 0">
+            Aucun commentaire pour le moment. Soyez le premier !
+          </div>
+
+          <!-- Formulaire commentaire -->
+          <div class="comment-form">
+            <h3>Ajouter un commentaire</h3>
+            <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+              <textarea
+                formControlName="content"
+                placeholder="Votre commentaire..."
+                rows="4"
+              ></textarea>
+              <button
+                type="submit"
+                class="btn-submit"
+                [disabled]="commentForm.invalid"
+              >
+                ENVOYER
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

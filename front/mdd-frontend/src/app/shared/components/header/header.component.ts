@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../../../features/auth/services/auth-service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -12,7 +12,10 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   @Input() activeTab: 'articles' | 'themes' = 'articles';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
   goToFeed(): void {
     this.router.navigate(['/feed']);
@@ -24,5 +27,8 @@ export class HeaderComponent {
 
   goToProfile(): void {
     this.router.navigate(['/profile']);
+  }
+  logout(): void {
+    this.authService.logout();
   }
 }
