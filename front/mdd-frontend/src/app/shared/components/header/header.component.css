@@ -66,6 +66,21 @@
     color: #666;
 }
 
+.logout-link {
+    color: #db5c5c;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    opacity: 0.8;
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 15px 20px;
