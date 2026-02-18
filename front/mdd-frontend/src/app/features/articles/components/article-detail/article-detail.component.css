@@ -144,6 +144,41 @@
     outline: none;
     border-color: #7C5CDB;
 }
+/* Liste commentaires */
+.comments-list {
+    margin-bottom: 30px;
+}
+
+.comment-item {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-left: 3px solid #7C5CDB;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #333;
+}
+
+.comment-date {
+    color: #999;
+}
+
+.comment-content {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
 
 .btn-submit {
     padding: 12px 30px;
