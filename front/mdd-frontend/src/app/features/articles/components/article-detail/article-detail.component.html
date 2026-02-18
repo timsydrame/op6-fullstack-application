@@ -1,4 +1,3 @@
-<p>article-detail works!</p>
 <div class="detail-page">
   <app-header [activeTab]="'articles'"></app-header>
 
@@ -43,9 +42,19 @@
         <div class="comments-section">
           <h2 class="comments-title">Commentaires</h2>
 
-          <!-- Liste commentaires (vide pour l'instant) -->
+          <!-- Liste commentaires -->
           <div class="no-comments" *ngIf="comments.length === 0">
             Aucun commentaire pour le moment. Soyez le premier !
+          </div>
+
+          <div class="comments-list" *ngIf="comments.length > 0">
+            <div class="comment-item" *ngFor="let comment of comments">
+              <div class="comment-header">
+                <span class="comment-author">{{ comment.authorName }}</span>
+                <span class="comment-date">{{ comment.createdAt | date:'dd/MM/yyyy à HH:mm' }}</span>
+              </div>
+              <p class="comment-content">{{ comment.content }}</p>
+            </div>
           </div>
 
           <!-- Formulaire commentaire -->
