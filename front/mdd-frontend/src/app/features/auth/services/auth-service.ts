@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthResponse } from '../interfaces/auth-response-interface';
 import { LoginRequest } from '../interfaces/login-request-interface';
 import { RegisterRequest } from '../interfaces/register-request-interface';
+import { UpdateUserRequest } from '../interfaces/update-user-request.interface';
 import { environment } from '../../../../environments/environment';
 
  @Injectable({
@@ -61,5 +62,14 @@ import { environment } from '../../../../environments/environment';
 
    getCurrentUser(): AuthResponse | null {
      return this.currentUserSubject.value;
+   }
+   updateUser(request: UpdateUserRequest): Observable<AuthResponse> {
+     return this.http
+       .put<AuthResponse>(`${environment.apiUrl}/auth/me`, request)
+       .pipe(
+         tap((response) => {
+           this.currentUserSubject.next(response);
+         }),
+       );
    }
  }

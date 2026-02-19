@@ -1,0 +1,85 @@
+<div class="profile-page">
+  <app-header [activeTab]="'articles'"></app-header>
+
+  <div class="content">
+    <div class="container">
+      
+      <!-- Profil utilisateur -->
+      <div class="profile-card">
+        <h1 class="title">Profil utilisateur</h1>
+
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              [class.error]="profileForm.get('username')?.invalid && profileForm.get('username')?.touched"
+            >
+            <div class="error-message"
+              *ngIf="profileForm.get('username')?.invalid && profileForm.get('username')?.touched">
+              Le nom d'utilisateur doit contenir au moins 3 caractères
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse e-mail</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              [class.error]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+            >
+            <div class="error-message"
+              *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+              Veuillez entrer une adresse email valide
+            </div>
+          </div>
+
+          <div class="success-message" *ngIf="successMessage">
+            {{ successMessage }}
+          </div>
+
+          <div class="error-message" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <button
+            type="submit"
+            class="btn-save"
+            [disabled]="profileForm.invalid || isLoading"
+          >
+            {{ isLoading ? 'SAUVEGARDE...' : 'SAUVEGARDER' }}
+          </button>
+        </form>
+
+        <button class="btn-logout" (click)="logout()">
+          Se déconnecter
+        </button>
+      </div>
+
+      <!-- Souscriptions -->
+      <div class="subscriptions-card">
+        <h2 class="title">Souscriptions</h2>
+
+        <div class="no-subscriptions" *ngIf="subscriptions.length === 0">
+          Vous n'êtes abonné à aucun thème pour le moment.
+        </div>
+
+        <div class="subscriptions-grid" *ngIf="subscriptions.length > 0">
+          <div class="subscription-item" *ngFor="let theme of subscriptions">
+            <div class="subscription-info">
+              <h3>{{ theme.name }}</h3>
+              <p>{{ theme.description }}</p>
+            </div>
+            <button class="btn-unsubscribe" (click)="unsubscribe(theme.id)">
+              Se désabonner
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

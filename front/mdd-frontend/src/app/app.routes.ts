@@ -53,6 +53,15 @@ export const routes: Routes = [
         (m) => m.ArticleDetailComponent,
       ),
   },
+
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/profile/profile.component').then(
+        (m) => m.ProfileComponent,
+      ),
+  },
   {
     path: '**',
     redirectTo: '',
