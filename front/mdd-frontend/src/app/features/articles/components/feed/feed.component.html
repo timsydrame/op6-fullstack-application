@@ -38,8 +38,7 @@
             <span class="article-date">{{ article.createdAt | date:'dd/MM/yyyy' }}</span>
             <span class="article-author">Auteur : {{ article.authorName }}</span>
           </div>
-          <p class="article-preview">{{ article.content | slice:0:200 }}{{ article.content.length > 200 ? '...' : '' }}</p>
-        </div>
+<p class="article-preview">{{ article.content | slice:0:200 }}{{ article.content && article.content.length > 200 ? '...' : '' }}</p>        </div>
       </div>
     </div>
   </div>
