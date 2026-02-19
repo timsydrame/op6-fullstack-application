@@ -1,13 +1,10 @@
 package com.openclassrooms.mdd_api.controller;
 
-import com.openclassrooms.mdd_api.dto.AuthResponse;
-import com.openclassrooms.mdd_api.dto.LoginRequest;
-import com.openclassrooms.mdd_api.dto.RegisterRequest;
+import com.openclassrooms.mdd_api.dto.*;
 import com.openclassrooms.mdd_api.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import com.openclassrooms.mdd_api.dto.UserDto;
 import com.openclassrooms.mdd_api.model.User;
 import com.openclassrooms.mdd_api.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -60,6 +57,44 @@ public class AuthController {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .createdAt(user.getCreatedAt())
+                .build();
+
+        return ResponseEntity.ok(userDto);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UserDto> updateUser(
+            @Valid @RequestBody UpdateUserRequest request,
+            Authentication authentication
+    ) {
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Vérifier si le nouveau username existe déjà
+        if (request.getUsername() != null && !request.getUsername().equals(user.getUsername())) {
+            if (userRepository.existsByUsername(request.getUsername())) {
+                throw new RuntimeException("Username already taken");
+            }
+            user.setUsername(request.getUsername());
+        }
+
+        // Vérifier si le nouvel email existe déjà
+        if (request.getEmail() != null && !request.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(request.getEmail())) {
+                throw new RuntimeException("Email already in use");
+            }
+            user.setEmail(request.getEmail());
+        }
+
+        User updatedUser = userRepository.save(user);
+
+        UserDto userDto = UserDto.builder()
+                .id(updatedUser.getId())
+                .username(updatedUser.getUsername())
+                .email(updatedUser.getEmail())
+                .createdAt(updatedUser.getCreatedAt())
                 .build();
 
         return ResponseEntity.ok(userDto);
